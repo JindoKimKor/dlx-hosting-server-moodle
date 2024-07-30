@@ -8,3 +8,4 @@ src/routes.js.*
 /log
 /public
 /undefined
+ngrok.exe
