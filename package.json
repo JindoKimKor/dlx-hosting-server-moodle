@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha -r dotenv/config",
-    "start": "export DEBUG=provider* && nodemon index.js"
+    "start": "set DEBUG=provider* & nodemon index.js"
   },
   "keywords": [
     "lti",
@@ -19,7 +19,7 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "ltijs": "^5.9.1",
+    "ltijs": "^5.9.5",
     "mongodb": "^6.3.0",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.0",

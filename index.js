@@ -47,6 +47,7 @@ lti.setup(
         `${process.env.URL}/dlx/Photogrammetry`
       ],
       autoActivate: true,
+      useDeepLinking: false,
     },
   }
 );
@@ -105,33 +106,33 @@ lti.app.use(routes);
 const setup = async () => {
   await lti.deploy({ port: process.env.PORT });
 
-  /**
-   * Register platform
-   */
-  await lti.registerPlatform({
-    url: "https://vconestoga.duckdns.org",
-    name: "Moodle",
-    clientId: process.env.CLIENT_ID,
-    authenticationEndpoint: "https://vconestoga.duckdns.org/mod/lti/auth.php",
-    accesstokenEndpoint: "https://vconestoga.duckdns.org/mod/lti/token.php",
-    authConfig: {
-      method: "JWK_SET",
-      key: "https://vconestoga.duckdns.org/mod/lti/certs.php",
-    },
-  });
+//   /**
+//    * Register platform
+//    */
+//   await lti.registerPlatform({
+//     url: "https://vconestoga.duckdns.org",
+//     name: "Moodle",
+//     clientId: process.env.CLIENT_ID,
+//     authenticationEndpoint: "https://vconestoga.duckdns.org/mod/lti/auth.php",
+//     accesstokenEndpoint: "https://vconestoga.duckdns.org/mod/lti/token.php",
+//     authConfig: {
+//       method: "JWK_SET",
+//       key: "https://vconestoga.duckdns.org/mod/lti/certs.php",
+//     },
+//   });
 
-  await lti.registerPlatform({
-    url: "https://conestoga.desire2learn.com",
-    name: "eConestoga",
-    clientId: "e69f1646-d2a0-4617-baeb-2f251c9c0ea4",
-    authenticationEndpoint:
-      "https://conestoga.desire2learn.com/d2l/lti/authenticate",
-    accesstokenEndpoint: "https://auth.brightspace.com/core/connect/token",
-    authConfig: {
-      method: "JWK_SET",
-      key: "https://conestoga.desire2learn.com/d2l/.well-known/jwks",
-    },
-  });
+//   await lti.registerPlatform({
+//     url: "https://conestoga.desire2learn.com",
+//     name: "eConestoga",
+//     clientId: "e69f1646-d2a0-4617-baeb-2f251c9c0ea4",
+//     authenticationEndpoint:
+//       "https://conestoga.desire2learn.com/d2l/lti/authenticate",
+//     accesstokenEndpoint: "https://auth.brightspace.com/core/connect/token",
+//     authConfig: {
+//       method: "JWK_SET",
+//       key: "https://conestoga.desire2learn.com/d2l/.well-known/jwks",
+//     },
+//   });
 };
 
 setup().then(logger.http(`Listening on port ${process.env.PORT}`));
