@@ -135,4 +135,8 @@ const setup = async () => {
 //   });
 };
 
-setup().then(logger.http(`Listening on port ${process.env.PORT}`));
+setup().then(() => {
+  logger.http(`Listening on port ${process.env.PORT}`);
+}).catch(err => {
+  logger.error('Failed to start server:', err);
+});

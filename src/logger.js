@@ -52,6 +52,10 @@ const logger = winston.createLogger({
       level: "debug",
       format: filterOnly("debug"),
     }),
+    new winston.transports.Console({
+      level: "http",
+      format: filterOnly("http"),
+    }),
   ],
 });
 
