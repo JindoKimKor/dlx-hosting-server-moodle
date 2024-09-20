@@ -132,6 +132,32 @@ const setup = async () => {
       key: "https://conestoga.desire2learn.com/d2l/.well-known/jwks",
     },
   });
+
+  await lti.registerPlatform({
+    url: "https://testconestoga.desire2learn.com",
+    name: "eConestoga",
+    clientId: "71120111-f7b5-4a62-ad06-6e36f0ac5fa0",
+    authenticationEndpoint:
+      "https://testconestoga.desire2learn.com/d2l/lti/authenticate",
+    accesstokenEndpoint: "https://auth.brightspace.com/core/connect/token",
+    authConfig: {
+      method: "JWK_SET",
+      key: "https://testconestoga.desire2learn.com/d2l/.well-known/jwks",
+    },
+  });
+
+  await lti.registerPlatform({
+    url: "https://vconestoga.duckdns.org",
+    name: "Moodle",
+    clientId: "Lt7EoACBAQD9pjS",
+    authenticationEndpoint:
+      "https://vconestoga.duckdns.org/mod/lti/auth.php",
+    accesstokenEndpoint: "https://vconestoga.duckdns.org/mod/lti/token.php",
+    authConfig: {
+      method: "JWK_SET",
+      key: "https://vconestoga.duckdns.org/mod/lti/certs.php",
+    },
+  });
 };
 
 setup().then(logger.http(`Listening on port ${process.env.PORT}`));

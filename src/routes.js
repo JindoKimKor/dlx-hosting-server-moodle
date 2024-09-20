@@ -28,12 +28,12 @@ router.get("/dlx/:param", async (req, res) => {
 
   // Create 'names_and_roles' cookie
   // This cookie will include all members information who are enrolled in a course
-  const response = await lti.NamesAndRoles.getMembers(res.locals.token) // Gets context members
+/*  const response = await lti.NamesAndRoles.getMembers(res.locals.token) // Gets context members
   res.cookie("names_and_roles", response, {
     secure: true,
     httpOnly: false,
     sameSite: "None",
-  });
+  });*/
   const content = await getContentByParam(param);
   
   // When content does not exist
