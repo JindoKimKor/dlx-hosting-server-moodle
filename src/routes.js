@@ -12,6 +12,7 @@ const {
 const Model = require("./models/model.js");
 mongoose.connect(process.env.DB_URL);
 const database = mongoose.connection;
+const provMainDebug = require('debug')('provider:main');
 
 // Requiring Ltijs
 const lti = require("ltijs").Provider;
@@ -221,12 +222,35 @@ router.get("/members", async (req, res) => {
 
 router.get("/deeplink", async (req, res) => {
   debugger;
+  // Add Extra Logs
+  const requestLog = {
+    query: req.query,
+    body: req.body,
+    params: req.params,
+    headers: req.headers,
+    method: req.method,
+    url: req.url,
+    ip: req.ip
+  };
+  provMainDebug('Request Form:', JSON.stringify(requestLog, null, 2));
+
   return res.sendFile(path.join(__dirname, "../public/dlx-client/index.html"));
 });
 
 router.get("/deeplink/contents", async (req, res) => {
   debugger;
   const course = res.locals.token.platformContext.context.title;
+  // Add Extra Logs
+  const requestLog = {
+    query: req.query,
+    body: req.body,
+    params: req.params,
+    headers: req.headers,
+    method: req.method,
+    url: req.url,
+    ip: req.ip
+  };
+  provMainDebug('Request Form:', JSON.stringify(requestLog, null, 2));
 
   // Update MongoDB before send the 'content list' to LMS
   // Get content list from the 'course' table in MongoDB
@@ -241,6 +265,18 @@ router.post("/deeplink", async (req, res) => {
   try {
     // get the resources that the user wants to have links for
     let resources = req.body.dlx;
+    
+    // Add Extra Logs
+    const requestLog = {
+    query: req.query,
+    body: req.body,
+    params: req.params,
+    headers: req.headers,
+    method: req.method,
+    url: req.url,
+    ip: req.ip
+  };
+  provMainDebug('Request Form:', JSON.stringify(requestLog, null, 2));
 
     // process the resources selected so that the next form can be prepared
     // when a single resource is selected resources is a string
