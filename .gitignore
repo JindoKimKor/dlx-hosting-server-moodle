@@ -10,3 +10,4 @@ src/routes.js.*
 /public
 /undefined
 ngrok.exe
+/.vscode
