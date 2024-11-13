@@ -8,6 +8,7 @@ ecosystem.config.js
 src/routes.js.*
 /log
 /public
+!/public/dlx-client
 /undefined
 ngrok.exe
 /.vscode
