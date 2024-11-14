@@ -3,6 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const { logger, logError } = require("./logger.js");
 const { sendFileResponse } = require("./utils/routes-helpers.js");
+const { sendDLXResponse } = require("./utils/routes-helpers.js");
 const {
   getContentsByCourse,
   getContentByParam,
@@ -29,12 +30,12 @@ router.get("/dlx/:param", async (req, res) => {
 
   // Create 'names_and_roles' cookie
   // This cookie will include all members information who are enrolled in a course
-/*  const response = await lti.NamesAndRoles.getMembers(res.locals.token) // Gets context members
+  const response = await lti.NamesAndRoles.getMembers(res.locals.token) // Gets context members
   res.cookie("names_and_roles", response, {
     secure: true,
     httpOnly: false,
     sameSite: "None",
-  });*/
+  });
   const content = await getContentByParam(param);
   
   // When content does not exist
@@ -44,7 +45,8 @@ router.get("/dlx/:param", async (req, res) => {
   if (param.includes("testing")) return res.send("success");
 
   // For local dlxs
-  return sendFileResponse(req, res, `../../public/${content.param}/index.html`);
+  // return sendFileResponse(req, res, `../../public/${content.param}/index.html`);
+  return sendDLXResponse(req, res, `/var/www/html/${content.param}/index.html`);
 });
 
 router.post("/mpcl1/submitGrade", async (req, res) => {
@@ -234,8 +236,10 @@ router.get("/deeplink", async (req, res) => {
   };
   provMainDebug('Request Form:', JSON.stringify(requestLog, null, 2));
 
-  return res.sendFile(path.join(__dirname, "../public/dlx-client/index.html"));
+  // return res.sendFile(path.join(__dirname, "../public/dlx-client/index.html"));
+  return sendDLXResponse(req, res, `/var/www/html/dlx-client/index.html`);
 });
+
 
 router.get("/deeplink/contents", async (req, res) => {
   debugger;

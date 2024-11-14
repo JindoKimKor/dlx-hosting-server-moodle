@@ -85,7 +85,7 @@ const getFolderNames = (directory) => {
 */
 const updateMongoDB = async (course) => {
   // project directory path
-  const projectDirectory = path.join(process.cwd(), 'public');
+  const projectDirectory = path.join('/var/www/html'); // path.join(process.cwd(), 'public');
   try {
     const client = await connectToMongoDB();
     const db = client.db('DLX');

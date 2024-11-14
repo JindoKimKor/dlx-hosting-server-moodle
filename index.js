@@ -19,7 +19,7 @@ lti.setup(
     url: process.env.DB_URL,
   },
   {
-    staticPath: path.join(__dirname, "./public"), // Path to static files
+    staticPath: path.join("/var/www/html"), // path.join(__dirname, "./public"), / // Path to static files
     cookies: {
       secure: true, // Set secure to true if the testing platform is in a different domain and https is being used
       sameSite: "None", // Set sameSite to 'None' if the testing platform is in a different domain and https is being used
@@ -108,6 +108,18 @@ const setup = async () => {
   /**
    * Register platform
    */
+  await lti.registerPlatform({
+    url: "https://vconestoga.duckdns.org",
+    name: "Moodle",
+    clientId: "BcWDgYvcNNaXbth",
+    authenticationEndpoint:
+      "https://vconestoga.duckdns.org/mod/lti/auth.php",
+    accesstokenEndpoint: "https://vconestoga.duckdns.org/mod/lti/token.php",
+    authConfig: {
+      method: "JWK_SET",
+      key: "https://vconestoga.duckdns.org/mod/lti/certs.php",
+    },
+  });
 
   await lti.registerPlatform({
     url: "https://testconestoga.desire2learn.com",

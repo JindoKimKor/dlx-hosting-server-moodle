@@ -12,4 +12,14 @@ const sendFileResponse = async (req, res, fileDir) => {
   }
 };
 
-module.exports = { sendFileResponse };
+const sendDLXResponse = async (req, res, fileDir) => {
+  try{
+    await res.sendFile(fileDir, (err) => {
+      err && logError(req, res, err);
+    });
+  } catch (err) {
+    logError(req, res, err);
+  }
+};
+
+module.exports = { sendFileResponse, sendDLXResponse };
