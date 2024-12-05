@@ -30,19 +30,19 @@ router.get("/dlx/:param", async (req, res) => {
 
   // Create 'names_and_roles' cookie
   // This cookie will include all members information who are enrolled in a course
-  const response = await lti.NamesAndRoles.getMembers(res.locals.token) // Gets context members
+  /*const response = await lti.NamesAndRoles.getMembers(res.locals.token) // Gets context members
   res.cookie("names_and_roles", response, {
     secure: true,
     httpOnly: false,
     sameSite: "None",
-  });
+  });*/
   const content = await getContentByParam(param);
-  
-  // When content does not exist
-  if (!content) return res.send("Not Found");
 
   // For testing
   if (param.includes("testing")) return res.send("success");
+
+  // When content does not exist
+  if (!content) return res.send("Not Found");
 
   // For local dlxs
   // return sendFileResponse(req, res, `../../public/${content.param}/index.html`);
@@ -50,6 +50,7 @@ router.get("/dlx/:param", async (req, res) => {
 });
 
 router.post("/mpcl1/submitGrade", async (req, res) => {
+  S
   var obj = {
     userID: res.locals.token.user,
     lastCompletedGrade: req.body.completionStatus,
@@ -206,7 +207,7 @@ router.post("/grade/deletelineitem", async (req, res) => {
 });
 
 //Get current user
-router.get("/currentuser", async(req, res) => {
+router.get("/currentuser", async (req, res) => {
   res.send(res.locals.token.user);
 });
 
@@ -259,7 +260,7 @@ router.get("/deeplink/contents", async (req, res) => {
   // Update MongoDB before send the 'content list' to LMS
   // Get content list from the 'course' table in MongoDB
   const contents = await updateMongoDB(course).then(() => getContentsByCourse(course));
-  
+
   return res.send(contents);
 });
 
@@ -269,18 +270,18 @@ router.post("/deeplink", async (req, res) => {
   try {
     // get the resources that the user wants to have links for
     let resources = req.body.dlx;
-    
+
     // Add Extra Logs
     const requestLog = {
-    query: req.query,
-    body: req.body,
-    params: req.params,
-    headers: req.headers,
-    method: req.method,
-    url: req.url,
-    ip: req.ip
-  };
-  provMainDebug('Request Form:', JSON.stringify(requestLog, null, 2));
+      query: req.query,
+      body: req.body,
+      params: req.params,
+      headers: req.headers,
+      method: req.method,
+      url: req.url,
+      ip: req.ip
+    };
+    provMainDebug('Request Form:', JSON.stringify(requestLog, null, 2));
 
     // process the resources selected so that the next form can be prepared
     // when a single resource is selected resources is a string
